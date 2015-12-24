@@ -31,9 +31,14 @@
            value="">--><!--Inputfield where the correct value from the slider is displayed-->
     <input type="range"
            name="rangeInput" 
-           min="0" 
+           min="-100" 
            max="100" 
-           onchange="scalingfactor(this.value);">
+           onchange="scalingfactor_x(this.value);">
+    <input type="range"
+           name="rangeInput" 
+           min="-100" 
+           max="100" 
+           onchange="scalingfactor_y(this.value);">
     <input name="updateButton" 
            type="button"
            value="January"
