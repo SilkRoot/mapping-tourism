@@ -15,6 +15,8 @@ var scaling_y = 0.1;
 var curr_month = 1;
 var svg1 = void 0;
 var svg2 = void 0;
+var loop_start = false;
+var looping = void 0;
   
 function set_mapsize (){
   console.log("the function set_mapsize is called");
@@ -569,3 +571,34 @@ var svg2 = d3.select("#map2")
   .attr("height", height);
 
 mapping2(svg2);
+
+function loop(){
+  if (loop_start == false){
+    loop_start = true
+    console.log("The function loop is called");
+    looping = setInterval(function(){
+      looper();
+    }, 500);
+    console.log("The looper was called");
+  }//if
+  else {
+    console.log("The loop is now stopped");
+    clearInterval(looping);
+    loop_start = false;
+  }
+  return(loop_start, looping);
+}//loop
+
+function looper(){
+  console.log("The looper is called successfully");
+//  curr_month = 1;
+  if (curr_month<12){
+    curr_month = curr_month+1;
+  }
+  else {
+    curr_month = 1;
+  }
+  console.log("The looper calls the changefunction with the month " + curr_month);
+  change(curr_month);
+  return(curr_month);
+}//looper
