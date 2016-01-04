@@ -36,6 +36,13 @@ text{
   pointer-events: all;
 }
 
+img.resize{
+/*   max-width:25%;
+   max-height:25%;*/
+  width:100px;
+  height:20px;
+}
+
 /*######## ids ########*/
 
 #map1{

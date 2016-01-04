@@ -9,8 +9,8 @@ var viewportheight;
 var months = ["average", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];//array
 var text = "";
 var cityPoints = void 0;
-var scaling_x = 1;
-var scaling_y = 1;
+var scaling_x = 0.1;
+var scaling_y = 0.1;
 var curr_month = 1;
   
 function set_mapsize (){
@@ -50,11 +50,9 @@ console.log("width is set to: " + width);
 
 function scalingfactor_x (val){
   console.log("the function scalingfactor is called");
-  scaling_x = val*0.1;
-  console.log("the chosen scalingfactor for x is: " + scaling_x);
-  scaling_x = scaling_x * Math.abs(scaling_x);
-  console.log("the quadric scalingfactor for x is: " + scaling_x);
-  scaling_x = scaling_x * 0.1;
+  val=val*0.1*0.5;
+  console.log("The factor, the scalingfactor is multiplied with is: " + val);
+  scaling_x = val*0.2;
   console.log("the final scalingfactor for x is: " + scaling_x);
   change(curr_month);
   return(scaling_x);
@@ -62,11 +60,9 @@ function scalingfactor_x (val){
 
 function scalingfactor_y (val){
   console.log("the function scalingfactor is called");
-  scaling_y = val*0.1;
-  console.log("the chosen scalingfactor for y is: " + scaling_y);
-  scaling_y = scaling_y * Math.abs(scaling_y);
-  console.log("the quadric scalingfactor for y is: " + scaling_y);
-  scaling_y = scaling_y * 0.1;
+  val=val*0.1*0.5;
+  console.log("The factor, the scalingfactor is multiplied with is: " + val);
+  scaling_y = val*0.05;
   console.log("the final scalingfactor for y is: " + scaling_y);
   change(curr_month);
   return(scaling_y);
@@ -155,6 +151,8 @@ function change(month){
   console.log("index of the given month: " + month + " which results in the month: " + month_name);
   var column_1 = "arrivals_" + month_name;
   var column_2 = "stay_" + month_name;
+  console.log("the current scaling factor for x is: " + scaling_x);
+  console.log("the current scaling factor for y is: " + scaling_y);
   //get data again
   d3.csv('./data/cities.csv', function(cities) {
     cityPoints = svg.selectAll('rect').data(cities);
@@ -167,6 +165,7 @@ function change(month){
         .attr('width', function(d) {return d.arrivals_0*scaling_x;} )//get width times a scaling factor
         .attr('height', function(d) {return d.stay_0*scaling_y;} );//get height times a scaling factor
         console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
         curr_month = 0;
     }//if
     if (month == 1){
@@ -176,6 +175,7 @@ function change(month){
         .attr('width', function(d) {return d.arrivals_1*scaling_x;} )//get width times a scaling factor
         .attr('height', function(d) {return d.stay_1*scaling_y;} );//get height times a scaling factor
         console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
         curr_month = 1;
     }//if
     if (month == 2){
@@ -185,16 +185,108 @@ function change(month){
         .attr('width', function(d) {return d.arrivals_2*scaling_x;} )//get width times a scaling factor
         .attr('height', function(d) {return d.stay_2*scaling_y;} );//get height times a scaling factor
         console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
         curr_month = 2;
     }//if
     if (month == 3){
       cityPoints.transition().duration(500)
         .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_3*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
         .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_3*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
-        .attr('width', function(d) {return d.arrivals_2*scaling_x;} )//get width times a scaling factor
-        .attr('height', function(d) {return d.stay_2*scaling_y;} );//get height times a scaling factor
+        .attr('width', function(d) {return d.arrivals_3*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_3*scaling_y;} );//get height times a scaling factor
         console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
         curr_month = 3;
+    }//if
+    if (month == 4){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_4*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_4*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_4*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_4*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 4;
+    }//if
+    if (month == 5){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_5*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_5*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_5*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_5*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 5;
+    }//if
+    if (month == 6){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_6*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_6*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_6*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_6*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 6;
+    }//if
+    if (month == 7){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_7*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_7*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_7*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_7*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 7;
+    }//if
+    if (month == 8){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_8*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_8*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_8*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_8*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 8;
+    }//if
+    if (month == 9){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_9*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_9*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_9*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_9*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 9;
+    }//if
+    if (month == 10){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_10*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_10*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_10*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_10*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 10;
+    }//if
+    if (month == 11){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_11*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_11*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_11*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_11*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 11;
+    }//if
+    if (month == 12){
+      cityPoints.transition().duration(500)
+        .attr('x', function(d) {return (projection([d.lon, d.lat])[0])-d.arrivals_12*0.5*scaling_x})//get latitude minus half of the diagram size (times diagramm scaling factor) to get a correct offset
+        .attr('y', function(d) {return (projection([d.lon, d.lat])[1])-d.stay_12*0.5*scaling_y})//get longitude minus half of the diagramm size (times diagramm scaling factor) to get a correct offset
+        .attr('width', function(d) {return d.arrivals_12*scaling_x;} )//get width times a scaling factor
+        .attr('height', function(d) {return d.stay_12*scaling_y;} );//get height times a scaling factor
+        console.log("Update of charts has been fired");
+        console.log("The choosen month is :" + month);
+        curr_month = 12;
     }//if
   });//d3.csv
 

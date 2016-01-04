@@ -29,28 +29,107 @@
 <!--<input type="text"
            id="textInput"
            value="">--><!--Inputfield where the correct value from the slider is displayed-->
-    <input type="range"
-           name="rangeInput" 
-           min="-100" 
-           max="100" 
-           onchange="scalingfactor_x(this.value);">
-    <input type="range"
-           name="rangeInput" 
-           min="-100" 
-           max="100" 
-           onchange="scalingfactor_y(this.value);">
-    <input name="updateButton" 
-           type="button"
-           value="January"
-           onclick="change(1)" />
-    <input name="updateButton" 
-           type="button"
-           value="Februrary"
-           onclick="change(2)" />
-    <input name="updateButton" 
-           type="button"
-           value="Marc"
-           onclick="change(3)" />
+    
+    
+   
+    <table>
+       <tr>
+        <td>
+          <input type="range"
+                 name="rangeInput" 
+                 min="0" 
+                 max="100" 
+                 onchange="scalingfactor_x(this.value);">
+        </td>
+        <td>
+          <input type="range"
+                 name="rangeInput" 
+                 min="0" 
+                 max="100" 
+                 onchange="scalingfactor_y(this.value);">
+        </td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+        <td>thumbnail</td>
+      </tr>
+      <tr>
+        <td>
+          Scaling the diagrams in x
+        </td>
+        <td>
+          Scaling the diagrams in y
+        </td>
+        <td><img class="resize"
+                 src="./img/jan.png"
+                 alt="January" 
+                 onclick="change(1)">
+        </td>
+        <td><img class="resize"
+                 src="./img/feb.png"
+                 alt="Februrary" 
+                 onclick="change(2)">
+        </td>
+        <td><img class="resize"
+                 src="./img/mar.png"
+                 alt="March" 
+                 onclick="change(3)">
+        </td>
+        <td><img class="resize"
+                 src="./img/apr.png"
+                 alt="April" 
+                 onclick="change(4)">
+        </td>
+        <td><img class="resize"
+                 src="./img/may.png"
+                 alt="May" 
+                 onclick="change(5)">
+        </td>
+        <td><img class="resize"
+                 src="./img/jun.png"
+                 alt="June" 
+                 onclick="change(6)">
+        </td>
+        <td><img class="resize"
+                 src="./img/jul.png"
+                 alt="July" 
+                 onclick="change(7)">
+        </td>
+        <td><img class="resize"
+                 src="./img/aug.png"
+                 alt="August" 
+                 onclick="change(8)">
+        </td>
+        <td><img class="resize"
+                 src="./img/sep.png"
+                 alt="September" 
+                 onclick="change(9)">
+        </td>
+        <td><img class="resize"
+                 src="./img/oct.png"
+                 alt="October" 
+                 onclick="change(10)">
+        </td>
+        <td><img class="resize"
+                 src="./img/nov.png"
+                 alt="November" 
+                 onclick="change(11)">
+        </td>
+        <td><img class="resize"
+                 src="./img/dec.png"
+                 alt="December" 
+                 onclick="change(12)">
+        </td>
+      </tr>
+    </table>
   </div>
   <!--map element at the DOM-->
   <div id="map1"></div>
