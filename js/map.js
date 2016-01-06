@@ -17,6 +17,8 @@ var svg1 = void 0;
 var svg2 = void 0;
 var loop_start = false;
 var looping = void 0;
+var zooml1 = 1;
+var zooml2 = 1;
   
 function set_mapsize (){
   console.log("the function set_mapsize is called");
@@ -75,8 +77,8 @@ var mapping1 = function(svg1){
   var path = d3.geo.path().projection(projection);
   
   //Aufrug der Topojson funktion
-  d3.json('./topojson/germany-topo_simp.json', function(data) {
-    var states = topojson.feature(data, data.objects.DEU_adm2);
+  d3.json('./topojson/german-topo1.json', function(data) {
+    var states = topojson.feature(data, data.objects.DEU_adm1);
 
     //definition of the scale depending od view port and used for scaling of the correct diagram position
     var b, s, t;
@@ -128,11 +130,16 @@ var mapping1 = function(svg1){
       console.log("the function zoomed is called");
       map1.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
       cityPoints1.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
+      zooml1 = zoom1.scale();
+    //  console.log("The current zoomlevel on map 1 is: " + zooml1);
+    //  zoomlevel();
     };//zoomed function
 
     var zoom1 = d3.behavior.zoom()
       .scaleExtent([1, 8])
       .on("zoom", zoomed1);
+
+    
 
     svg1.append("rect")
       .attr("class", "overlay")
@@ -140,7 +147,7 @@ var mapping1 = function(svg1){
       .attr("height", height)
       .call(zoom1);
   });
-  return(map1, cityPoints1, svg1);
+  return(map1, cityPoints1, svg1, zooml1);
 };
 //create charts
 
@@ -151,8 +158,8 @@ var mapping2 = function(svg2){
   var path = d3.geo.path().projection(projection);
   
   //Aufrug der Topojson funktion
-  d3.json('./topojson/germany-topo_simp.json', function(data) {
-    var states = topojson.feature(data, data.objects.DEU_adm2);
+  d3.json('./topojson/german-topo3.json', function(data) {
+    var states = topojson.feature(data, data.objects.DEU_adm3);
 
     //definition of the scale depending od view port and used for scaling of the correct diagram position
     var b, s, t;
@@ -204,11 +211,16 @@ var mapping2 = function(svg2){
       console.log("the function zoomed is called");
       map2.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
       cityPoints2.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
+      zooml2 = zoom2.scale();
+    //  console.log("The current zoomlevel on map 2 is: " + zooml2);
+    //  zoomlevel();
     };//zoomed function
 
     var zoom2 = d3.behavior.zoom()
       .scaleExtent([1, 8])
       .on("zoom", zoomed2);
+
+    
 
     svg2.append("rect")
       .attr("class", "overlay")
@@ -216,7 +228,7 @@ var mapping2 = function(svg2){
       .attr("height", height)
       .call(zoom2);
   });
-  return(map2, cityPoints2, svg2);
+  return(map2, cityPoints2, svg2, zooml2);
 };
 //create charts
    
@@ -376,6 +388,9 @@ function change1(month){
     console.log("the function zoomed is called");
     map1.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
     cityPoints1.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
+    zooml1 = zoom1.scale();
+  //  console.log("The current zoomlevel on map 1 is: " + zooml1);
+  //  zoomlevel();
   };//zoomed function
 
   var zoom1 = d3.behavior.zoom()
@@ -392,6 +407,8 @@ function change1(month){
   console.log (" ");
   console.log (" ");
   console.log (" ");
+
+  return(zooml1);
 };//function change
 
 //Update function to change the diagrams
@@ -541,6 +558,9 @@ function change2(month){
     console.log("the function zoomed is called");
     map2.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
     cityPoints2.attr("transform", "translate("+ d3.event.translate + ")scale(" + d3.event.scale + ")");
+    zooml2 = zoom2.scale();
+  //  console.log("The current zoomlevel on map 2 is: " + zooml2);
+  //  zoomlevel();
   };//zoomed function
 
   var zoom2 = d3.behavior.zoom()
@@ -555,6 +575,8 @@ function change2(month){
 
   console.log ("function change 2 finished");
   console.log (" ");
+
+  
 };//function change2
 
 //selection of DOM-element
@@ -602,3 +624,66 @@ function looper(){
   change(curr_month);
   return(curr_month);
 }//looper
+
+function zoomlevel(){
+  console.log("The function zoomlevel is called");
+  console.log("The current zoomlevel on map 1 is: " + zooml1);
+  console.log("The current zoomlevel on map 2 is: " + zooml2);
+}
+
+$('html').one('DOMMouseScroll', function(e){
+  var delta = e.originalEvent.detail;
+  if (delta > 0) {
+    alert('You scrolled up');
+    console.log("You scrolled!");
+  } else if (delta < 0) {
+    alert('You scrolled down');
+    console.log("You scrolled!");
+  }
+});
+
+//Everything else
+$('html').on('mousewheel', function(e){
+  var delta = e.originalEvent.wheelDelta;
+  if (delta < 0) {
+    alert('You scrolled down');
+    console.log("You scrolled!");
+  } else if (delta > 0) {
+    console.log("You scrolled!");
+    alert('You scrolled up');
+  }
+});
+/*
+$( 'html' ).on( 'mousewheel', function ( event ) {
+  console.log("The mousewheel was used");
+    // crude check to see events are supported
+    if ( typeof event.originalEvent.wheelDeltaX === 'undefined'
+        || typeof event.originalEvent.wheelDeltaY === 'undefined' ) {
+        console.log( "could not find mouse deltas" );
+        return;
+    }
+
+    var deltaX = event.originalEvent.wheelDeltaX;
+    var deltaY = event.originalEvent.wheelDeltaY;
+
+    var scrolledLeft = deltaX < 0;
+    var scrolledRight = deltaX > 0;
+    var scrolledUp = deltaY < 0;
+    var scrolledDown = deltaY > 0;
+
+    clearDisplay();
+
+    if ( scrolledLeft ) { display( 'scrolled left' ); }
+    if ( scrolledRight ) { display( 'scrolled right' ); }
+    if ( scrolledUp ) { display( 'scrolled up' ); }
+    if ( scrolledDown ) { display( 'scrolled down' ); }
+});
+
+function clearDisplay () {
+    $( '#scrollCatcher' ).text( '' );
+}
+
+function display( message ) {
+    $( '#scrollCatcher' ).text( $( '#scrollCatcher' ).text() + message + ' ' );
+}
+*/
